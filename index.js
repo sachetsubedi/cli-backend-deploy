@@ -36,7 +36,8 @@ io.on('connection',(socket)=>{
     socket.on('rename',(newUserName)=>{
         const oldUsername=userName;
         userName=newUserName;
-        io.emit('rename',{oldUsername,userName});
+        socket.broadcast.emit('rename',{oldUsername,userName});
+        socket.emit('renamed',{oldUsername,userName});
     })
 
     socket.on('disconnect',(reason)=>{
