@@ -23,6 +23,7 @@ io.on('connection',(socket)=>{
     socket.join(roomId);
 
     socket.on('joinRoom',(currentRoom,room)=>{
+        socket.broadcast.to(currentRoom).emit('leftCustomRoom',userName);
         socket.leave(currentRoom);
         socket.join(room);
         socket.emit('roomJoined',room);
@@ -32,6 +33,7 @@ io.on('connection',(socket)=>{
 
     socket.on('createRoom',(currentRoom)=>{
         const room=generateRandomRoomName();
+        socket.broadcast.to(currentRoom).emit('leftCustomRoom',userName);
         socket.leave(currentRoom);
         socket.join(room);
         socket.emit('roomCreated',room);
@@ -62,7 +64,7 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('disconnect',(reason)=>{
-        socket.broadcast.emit('disconnected',userName);
+        socket.broadcast.to(roomId).emit('disconnected',userName);
     })
     
 })
