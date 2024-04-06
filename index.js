@@ -6,14 +6,7 @@ import generateRandomRoomName from "./src/scripts/randomRoomGenerator.js";
 const app = express();
 
 // Apply CORS middleware with specific options
-app.use(
-  cors({
-    origin: "*", // Update this to your front-end domain
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Response");
