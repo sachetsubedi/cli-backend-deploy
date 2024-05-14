@@ -1,12 +1,12 @@
 function generateRandomRoomName() {
-    const letters = 'abcdefghijklmnopqrstuvwxyz';
-    let randomRoomName = '';
-  
-    for (let i = 0; i < 5; i++) {
-      const randomIndex = Math.floor(Math.random() * letters.length);
-      randomRoomName += letters[randomIndex];
-    }
-  
-    return randomRoomName;
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  let randomRoomName = "";
+
+  for (let i = 0; i < 5; i++) {
+    const randomIndex = Math.floor(Math.random() * letters.length);
+    randomRoomName += letters[randomIndex];
   }
-  export default generateRandomRoomName;
+
+  return randomRoomName;
+}
+export default generateRandomRoomName;

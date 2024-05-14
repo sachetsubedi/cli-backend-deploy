@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { Server } from "socket.io";
-import generateRandomRoomName from "./scripts/randomRoomGenerator.js";
+import generateRandomRoomName from "./src/scripts/randomRoomGenerator.js";
 const app = express();
 app.use(cors());
 
