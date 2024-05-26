@@ -7,7 +7,7 @@ const app = express();
 
 // Set up CORS options
 const corsOptions = {
-  origin: "https://cli.sachetsubedi001.com.np",
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -26,7 +26,7 @@ const httpServer = app.listen(3000, () => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://cli.sachetsubedi001.com.np",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
