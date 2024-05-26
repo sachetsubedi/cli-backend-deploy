@@ -26,8 +26,9 @@ const httpServer = app.listen(3000, () => {
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: "*",
+    allowedHeaders: "*",
+    accessControlAllowOrigin: "*",
     credentials: true,
   },
 });
