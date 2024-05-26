@@ -2,16 +2,34 @@ import cors from "cors";
 import express from "express";
 import { Server } from "socket.io";
 import generateRandomRoomName from "./src/scripts/randomRoomGenerator.js";
+
 const app = express();
-app.use(cors());
+
+// Set up CORS options
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+// Apply CORS middleware with the options
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
-  res.send("Resonse");
+  res.send("Response");
 });
-const httpServer = app.listen(3000, console.log("Server running at 3000"));
+
+const httpServer = app.listen(3000, () => {
+  console.log("Server running at 3000");
+});
+
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   },
 });
 
@@ -38,6 +56,7 @@ io.on("connection", (socket) => {
     "Scribble Scribble",
     "Twinkle Toes",
   ];
+
   let userName;
   let roomId = "master";
   socket.join(roomId);
@@ -61,21 +80,20 @@ io.on("connection", (socket) => {
     roomId = room;
   });
 
-  // send connection message
   socket.on("createConnection", (name) => {
-    name != null
-      ? (userName = name)
-      : (userName = defaultNames[Math.floor(Math.random() * 20)]);
+    userName =
+      name != null
+        ? name
+        : defaultNames[Math.floor(Math.random() * defaultNames.length)];
     socket.broadcast.to(roomId).emit("connected", userName);
     socket.emit("connectionSuccess", userName);
   });
-  // message sent
+
   socket.on("message", (mess) => {
     console.log(mess);
-    io.to(roomId).emit("message", { userName: userName, message: mess });
+    io.to(roomId).emit("message", { userName, message: mess });
   });
 
-  // rename user
   socket.on("rename", (newUserName) => {
     const oldUsername = userName;
     userName = newUserName;
@@ -83,7 +101,7 @@ io.on("connection", (socket) => {
     socket.emit("renamed", { oldUsername, userName });
   });
 
-  socket.on("disconnect", (reason) => {
+  socket.on("disconnect", () => {
     socket.broadcast.to(roomId).emit("disconnected", userName);
   });
 });
