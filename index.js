@@ -5,12 +5,12 @@ import generateRandomRoomName from "./src/scripts/randomRoomGenerator.js";
 
 const app = express();
 
-// Apply CORS middleware with the options
+// Apply CORS middleware with specific options
 app.use(
   cors({
-    allowedHeaders: "*",
-    accessControlAllowOrigin: "*",
-    methods: "*",
+    origin: "*", // Update this to your front-end domain
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
     credentials: true,
   })
 );
@@ -25,10 +25,9 @@ const httpServer = app.listen(3000, () => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "*",
-    methods: "*",
-    allowedHeaders: "*",
-    accessControlAllowOrigin: "*",
+    origin: "*", // Update this to your front-end domain
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
     credentials: true,
   },
 });
