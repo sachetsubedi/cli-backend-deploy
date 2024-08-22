@@ -21,14 +21,7 @@ const httpServer = app.listen(3000, () => {
   console.log("Server running at 3000");
 });
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: true, // Update this to your front-end domain
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-    credentials: true,
-  },
-});
+const io = new Server(httpServer);
 
 io.on("connection", (socket) => {
   const defaultNames = [
