@@ -23,7 +23,7 @@ const httpServer = app.listen(3000, () => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", // Update this to your front-end domain
+    origin: true, // Update this to your front-end domain
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
