@@ -13,15 +13,20 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send("Response");
-});
+// app.get("/", (req, res) => {
+//   res.send("Response");
+// });
 
 const httpServer = app.listen(3000, () => {
   console.log("Server running at 3000");
 });
 
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: true, // Update this to your front-end domain
+    credentials: true,
+  },
+});
 
 io.on("connection", (socket) => {
   const defaultNames = [
