@@ -1,0 +1,12 @@
+name: Push Worklflow
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  test_push:
+    runs-on: ubuntu-latest
+    name: Checkout code
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "Hello, World!"
